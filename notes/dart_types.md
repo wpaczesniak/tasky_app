@@ -55,4 +55,42 @@ var n4 = 555_123_4567; // US Phone number
 var n5 = 100__000_000__000_000; // one hundred million million!
 ```
 
+### String wieloliniowy
 
+Potrójny cudzysłów (''' albo """) Oznacza w jezyku Dart:
+„to ma być jeden String, ale z łamaniami linii dokładnie takimi jak w kodzie”.
+
+```dart
+var s1 = '''
+You can create
+multi-line strings like this one.
+''';
+```
+
+### Raw string (r'...')
+
+Prefiks r oznacza raw string, czyli:
+
+- brak ucieczek
+
+- brak interpretacji \n, \t, \uXXXX, itd.
+
+```dart
+var s = r'In a raw string, not even \n gets special treatment.';
+```
+
+Wykorzystuje sie je
+gdy mamy:
+
+- regexy (wyrazenia regularne)
+
+- ścieżki plików (C:\Users\...)
+
+- tekst z masą backslashy
+
+- cokolwiek, gdzie `\` ma pozostać `\`
+
+### compile-time constant
+To znaczy:
+wartość musi być znana zanim program w ogóle ruszy.
+Kompilator musi być w stanie ją policzyć bez uruchamiania aplikacji.
