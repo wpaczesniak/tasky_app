@@ -94,3 +94,75 @@ gdy mamy:
 To znaczy:
 wartość musi być znana zanim program w ogóle ruszy.
 Kompilator musi być w stanie ją policzyć bez uruchamiania aplikacji.
+
+**const String**
+
+**String** jest stałą kompilacyjną, jeśli:
+
+sam jest **const**
+
+wszystko, co interpolujesz **($...)** też jest **const**
+
+interpolowane wartości są: **null, num, bool, String** Natomiast List nie jest dozwolona w interpolacji bo ma to uniknac na pozwalanie na wstawianie innych rodzajów elementów różnego typu. 
+Interpolacja to po prostu wkładanie wartości do tekstu, żeby nie sklejać wszystkiego ręcznie.
+
+```dart
+// These work in a const string.
+const aConstNum = 0;
+const aConstBool = true;
+const aConstString = 'a constant string';
+
+// These do NOT work in a const string.
+var aNum = 0;
+var aBool = true;
+var aString = 'a string';
+const aConstList = [1, 2, 3];
+
+const validConstString = '$aConstNum $aConstBool $aConstString';
+// const invalidConstString = '$aNum $aBool $aString $aConstList';
+
+```
+
+Interpolacja pozwala na uniknięcie sklejania 
+
+
+```dart
+var imie = 'Ania';
+print('Cześć, mam na imię ' + imie + '.');
+```
+
+Z interpolacją
+
+```dart
+var imie = 'Ania';
+print('Cześć, mam na imię $imie.');
+```
+
+### `const` a `final`
+
+**const**
+- wartość znana w czasie kompilacji
+- obiekt jest całkowicie niezmienny
+- kompilator może go współdzielić i optymalizować
+
+
+**final**
+- przypisujesz raz
+- wartość ustalana w runtime
+- obiekt może być mutowalny
+
+Podsumowanie `const` i `final` 
+- `const` = stała znana przed startem programu
+- `final` = przypisana raz, ale dopiero po starcie
+
+We Flutterze często zobaczymy widgety `const` ze względu na:
+- widgety const nie są przebudowywane
+- mniejsze zużycie pamięci
+- szybszy rebuild
+
+### Runa
+
+Oznaczają punkt kodowy Unicode
+Co to znaczy
+- Tekst (String) to znaki.
+- Unicode nadaje każdemu znakowi numer.
