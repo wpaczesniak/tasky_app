@@ -162,7 +162,26 @@ We Flutterze często zobaczymy widgety `const` ze względu na:
 
 ### Runa
 
-Oznaczają punkt kodowy Unicode
-Co to znaczy
-- Tekst (String) to znaki.
-- Unicode nadaje każdemu znakowi numer.
+Runy w Darcie to punkty kodowe Unicode zapisane jako liczby typu `int`.
+
+Czyli: string to tekst, a runes to sposób, żeby zobaczyć ten tekst jako numery znaków w Unicode (code points), zamiast jako UTF-16 “kawałki”.
+
+```dart
+print('A'.runes.first);   // 65 (U+0041)
+print('♥'.runes.first);   // 9829 (U+2665)
+print('😆'.runes.first);  // 128518 (U+1F606)
+```
+
+
+
+
+void main() {
+  var hi = 'Hi 🇩🇰';
+  print(hi);
+  print('The end of the string: ${hi.substring(hi.length - 1)}');
+  print('The end: ${hi.length}');
+  print('The last character: ${hi.characters.last}');
+  print('😆'.runes.length);     // 1 code point
+  print('😆'.length);           // 2 code units
+
+}
