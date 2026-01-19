@@ -172,7 +172,9 @@ print('♥'.runes.first);   // 9829 (U+2665)
 print('😆'.runes.first);  // 128518 (U+1F606)
 ```
 
-
+var s = '🇩🇰';
+print(s.length);        // 4 (code units)
+print(s.runes.length);  // 2 (code points)
 
 
 void main() {
