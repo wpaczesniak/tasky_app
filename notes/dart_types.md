@@ -171,19 +171,47 @@ print('A'.runes.first);   // 65 (U+0041)
 print('♥'.runes.first);   // 9829 (U+2665)
 print('😆'.runes.first);  // 128518 (U+1F606)
 ```
-
+```dart
 var s = '🇩🇰';
 print(s.length);        // 4 (code units)
 print(s.runes.length);  // 2 (code points)
+```
 
-
+```dart
 void main() {
   var hi = 'Hi 🇩🇰';
   print(hi);
   print('The end of the string: ${hi.substring(hi.length - 1)}');
   print('The end: ${hi.length}');
   print('The last character: ${hi.characters.last}');
-  print('😆'.runes.length);     // 1 code point
-  print('😆'.length);           // 2 code units
 
 }
+```
+
+`length` liczy code units
+`substring` tnie po code units
+`hi.length` liczy UTF-16 code units, a nie “znaki”.
+
+Dla `'Hi 🇩🇰'` to zwykle 7 (H=1, i=1, spacja=1, 🇩=2, 🇰=2).
+
+`substring(hi.length - 1)` to `substring(6)` bierze ostatni code unit.
+
+Ostatni code unit to połowa znaku (połowa surrogate pair od 🇰), więc wynik będzie często `�` albo `?` (zależy od konsoli). Czyli “urwany kawałek flagi”.
+
+`characters.last` bierze ostatni grapheme cluster (znak postrzegany przez użytkownika).
+
+`substring` + `length` potrafią “przeciąć” emoji/flagę w połowie.
+
+`characters` operuje na tym, co wygląda jak pojedynczy znak, więc działa poprawnie.
+
+### Symbol
+
+**Symbol** reprezentuje nazwę operatora albo identyfikatora (np. nazwy metody, pola, zmiennej) zadeklarowanego w programie.
+
+Czyli zamiast trzymać nazwę jako string `"radix"`, trzymasz ją jako symbol `#radix`.
+
+Bo przy minifikacji `(głównie zmniejszanie rozmiaru (przy okazji robi się mniej czytelnie)` (np. w release build) kompilator może zmienić nazwy identyfikatorów, żeby kod był mniejszy, np. someVeryLongMethodName staje się a.
+
+A symbole są traktowane przez narzędzia/kompilator w sposób odporny na minifikację (w skrócie: odnoszą się do identyfikatora “po znaczeniu”, nie po literalnym tekście nazwy).
+
+API, które odwołują się do rzeczy “po nazwie” (np. refleksja, dynamiczne wywołania, noSuchMethod, niektóre frameworki) wolą Symbol, nie String.
