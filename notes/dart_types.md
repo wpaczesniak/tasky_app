@@ -215,3 +215,5 @@ Bo przy minifikacji `(głównie zmniejszanie rozmiaru (przy okazji robi się mni
 A symbole są traktowane przez narzędzia/kompilator w sposób odporny na minifikację (w skrócie: odnoszą się do identyfikatora “po znaczeniu”, nie po literalnym tekście nazwy).
 
 API, które odwołują się do rzeczy “po nazwie” (np. refleksja, dynamiczne wywołania, noSuchMethod, niektóre frameworki) wolą Symbol, nie String.
+
+
